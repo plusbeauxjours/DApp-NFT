@@ -27,4 +27,29 @@ contract SaleAnimalToken {
 
         onSaleAnimalTokenArray.push(_animalTokenId);
     }
+
+    function purchaseAnimalToken(uint256 _animalTokenId) public payable{
+        uint256 price = animalTokenPrices[_animalTokenId];
+        address animalTokenOwner = mintAnimalTokenAddress.ownerOf(_animalTokenId);
+
+        require(price > 0, "Animal token not sale.");
+        require(price <= msg.value, "Caller sent lower than price." );
+        require(animalTokenOwner != msg.sender, "Caller is animal token owner.");
+
+        payable(animalTokenOwner).transfer(msg.value);  // msg.value는 토큰의 가격, 가격만큼이 animalTokenOwner에게 간다.
+        mintAnimalTokenAddress.safeTransferFrom(animalTokenOwner, msg.sender, _animalTokenId);  // 보내는 사람, 받는 사람, 무엇을 보낼것인가
+
+        animalTokenPrices[_animalTokenId] = 0;  // 초기화
+        for(uint256 i=0; i< onSaleAnimalTokenArray.length; i++){
+            if(animalTokenPrices[onSaleAnimalTokenArray[i]]==0){
+                onSaleAnimalTokenArray[i]=onSaleAnimalTokenArray[onSaleAnimalTokenArray.length-1];
+                onSaleAnimalTokenArray.pop();
+            }
+        }
+    }
+
+    function getOnSaleAnimalTokenArrayLength() view public returns(uint256){
+        return onSaleAnimalTokenArray.length;
+    }
 }
+
