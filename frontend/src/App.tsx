@@ -1,7 +1,17 @@
 import React, { FC } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Main from "./routes/Main";
 
-const App: FC = () => {
-  return <div>web3-boilerplate</div>;
+interface IProps {}
+
+const App: React.FC<IProps> = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />}></Route>
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;
