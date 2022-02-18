@@ -25,16 +25,12 @@ const App: React.FC<IProps> = () => {
 
   useEffect(() => {
     getAccount();
-  }, []);
-
-  useEffect(() => {
-    console.log("account", account);
   }, [account]);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />}></Route>
+        <Route path="/" element={<Main account={account} />}></Route>
       </Routes>
     </BrowserRouter>
   );

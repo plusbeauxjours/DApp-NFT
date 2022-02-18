@@ -1,5 +1,5 @@
-import { AbiItem } from "web3-utils";
 import Web3 from "Web3";
+import { AbiItem } from "web3-utils";
 
 const mintAnimalTokenAbi: AbiItem[] = [
   {
