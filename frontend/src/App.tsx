@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "./routes/Main";
+import Layout from "./components/Layout";
+import Main from "./routes/main";
+import MyAnimal from "./routes/my-animal";
 
 interface IProps {}
 
@@ -29,9 +31,12 @@ const App: React.FC<IProps> = () => {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main account={account} />}></Route>
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Main account={account} />} />
+          <Route path="/my-animal" element={<MyAnimal account={account} />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 };
