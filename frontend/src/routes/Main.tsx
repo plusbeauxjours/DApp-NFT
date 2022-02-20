@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
+
 import { mintAnimalTokenContract } from "../web3Config";
+import AnimalCard from "../components/AnimalCard";
 
 interface IProps {
   account?: string;
@@ -15,7 +17,23 @@ const Main: React.FC<IProps> = ({ account }) => {
       const response = await mintAnimalTokenContract.methods
         .mintAnimalToken()
         .send({ from: account });
-      console.log(response);
+
+      if (response.status) {
+        const balanceLength = await mintAnimalTokenContract.methods
+          .balanceOf(account)
+          .call();
+        const animalTokenId = await mintAnimalTokenContract.methods
+          .tokenOfOwnerByIndex(account, parseInt(balanceLength.length, 10) - 1)
+          .call();
+        const animalType = await mintAnimalTokenContract.methods
+          .animalTypes(animalTokenId)
+          .call();
+        setNewAnimalCard(animalType);
+        const owner = await mintAnimalTokenContract.methods
+          .ownerOf(animalTokenId)
+          .call();
+        console.log("owner", owner, "account", account);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -31,7 +49,7 @@ const Main: React.FC<IProps> = ({ account }) => {
     >
       <Box>
         {newAnimalCard ? (
-          <div>{newAnimalCard}</div>
+          <AnimalCard animalType={newAnimalCard} />
         ) : (
           <Text>Let's mint AnimalCard!</Text>
         )}
