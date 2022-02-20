@@ -6,7 +6,9 @@ interface IProps {
 }
 
 const AnimalCard: React.FC<IProps> = ({ animalType }) => {
-  return <Image src={`images/${animalType}.jpg`} />;
+  return (
+    <Image boxSize="200px" objectFit="cover" src={`images/${animalType}.jpg`} />
+  );
 };
 
 export default AnimalCard;
