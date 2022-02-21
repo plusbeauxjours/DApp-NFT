@@ -540,7 +540,7 @@ export const mintAnimalTokenContract = new web3.eth.Contract(
   mintAnimalTokenAbi,
   mintAnimalTokenAddress
 );
-export const slaeAnimalTokenContract = new web3.eth.Contract(
+export const saleAnimalTokenContract = new web3.eth.Contract(
   saleAnimalTokenAbi,
   saleAnimalTokenAddress
 );

@@ -32,7 +32,6 @@ const Main: React.FC<IProps> = ({ account }) => {
         const owner = await mintAnimalTokenContract.methods
           .ownerOf(animalTokenId)
           .call();
-        console.log("owner", owner, "account", account);
       }
     } catch (e) {
       console.log(e);

@@ -5,7 +5,7 @@ import AnimalCard from "../components/AnimalCard";
 import {
   mintAnimalTokenContract,
   saleAnimalTokenAddress,
-  slaeAnimalTokenContract,
+  saleAnimalTokenContract,
 } from "../web3Config";
 import MyAnimalCard, { IMyAnimalCard } from "../components/MyAnimalCard";
 
@@ -34,7 +34,7 @@ const MyAnimal: React.FC<IProps> = ({ account }) => {
           .animalTypes(animalTokenId)
           .call();
 
-        const animalPrice = await slaeAnimalTokenContract.methods
+        const animalPrice = await saleAnimalTokenContract.methods
           .animalTokenPrices(animalTokenId)
           .call();
 
@@ -55,7 +55,6 @@ const MyAnimal: React.FC<IProps> = ({ account }) => {
       if (response) {
         setSaleStatus(response);
       }
-      console.log("response", response);
     } catch (e) {
       console.log(e);
     }
