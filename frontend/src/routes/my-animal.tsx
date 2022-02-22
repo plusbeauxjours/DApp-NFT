@@ -23,23 +23,21 @@ const MyAnimal: React.FC<IProps> = ({ account }) => {
         .balanceOf(account)
         .call();
 
-      const tempAnimalCardArray = [];
+      if (balanceLength === "0") return;
 
-      for (let i = 0; i < parseInt(balanceLength, 10); i++) {
-        const animalTokenId = await mintAnimalTokenContract.methods
-          .tokenOfOwnerByIndex(account, i)
-          .call();
+      const tempAnimalCardArray: IMyAnimalCard[] = [];
 
-        const animalType = await mintAnimalTokenContract.methods
-          .animalTypes(animalTokenId)
-          .call();
+      const response = await mintAnimalTokenContract.methods
+        .getAnimalTokens(account)
+        .call();
 
-        const animalPrice = await saleAnimalTokenContract.methods
-          .animalTokenPrices(animalTokenId)
-          .call();
-
-        tempAnimalCardArray.push({ animalTokenId, animalType, animalPrice });
-      }
+      response.map((i: IMyAnimalCard) => {
+        tempAnimalCardArray.push({
+          animalTokenId: i.animalTokenId,
+          animalType: i.animalType,
+          animalPrice: i.animalPrice,
+        });
+      });
 
       setAnimalCardArray(tempAnimalCardArray);
     } catch (e) {
