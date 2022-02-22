@@ -48,7 +48,6 @@ const MyAnimalCard: React.FC<IProps> = ({
       if (response.status) {
         setMyAnimalPrice(web3.utils.toWei(sellPrice, "ether"));
       }
-      console.log("lplp");
     } catch (e) {
       console.log(e);
     }

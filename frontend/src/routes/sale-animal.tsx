@@ -56,6 +56,8 @@ const SaleAnimal: React.FC<IProps> = ({ account }) => {
         saleAnimalCardArray.map((v, i) => (
           <SaleAnimalCard
             key={i}
+            account={account}
+            animalTokenId={v.animalTokenId}
             animalType={v.animalType}
             animalPrice={v.animalPrice}
           />
