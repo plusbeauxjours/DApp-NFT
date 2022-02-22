@@ -60,6 +60,7 @@ const SaleAnimal: React.FC<IProps> = ({ account }) => {
             animalTokenId={v.animalTokenId}
             animalType={v.animalType}
             animalPrice={v.animalPrice}
+            getOnSaleAnimalTokens={getOnSaleAnimalTokens}
           />
         ))}
     </Grid>
