@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Button, Text, Flex } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 
-import AnimalCard from "../components/AnimalCard";
 import {
   mintAnimalTokenContract,
-  saleAnimalTokenAddress,
   saleAnimalTokenContract,
 } from "../web3Config";
-import MyAnimalCard, { IMyAnimalCard } from "../components/MyAnimalCard";
+import { IMyAnimalCard } from "../components/MyAnimalCard";
+import SaleAnimalCard from "../components/SaleAnimalCard";
 
 interface IProps {
   account: string;
 }
 
-const MyAnimal: React.FC<IProps> = ({ account }) => {
-  const [saleAnimalCard, setSaleAnimalCard] = useState<IMyAnimalCard[]>();
+const SaleAnimal: React.FC<IProps> = ({ account }) => {
+  const [saleAnimalCardArray, setSaleAnimalCardArray] =
+    useState<IMyAnimalCard[]>();
 
   const getOnSaleAnimalTokens = async () => {
     try {
@@ -40,8 +40,7 @@ const MyAnimal: React.FC<IProps> = ({ account }) => {
         tempOnSaleArray.push({ animalTokenId, animalType, animalPrice });
       }
 
-      setSaleAnimalCard(tempOnSaleArray);
-      console.log(tempOnSaleArray);
+      setSaleAnimalCardArray(tempOnSaleArray);
     } catch (e) {
       console.log(e);
     }
@@ -50,11 +49,19 @@ const MyAnimal: React.FC<IProps> = ({ account }) => {
   useEffect(() => {
     getOnSaleAnimalTokens();
   }, []);
+
   return (
-    <>
-      <Grid mt={4} templateColumns={"repeat(4, 1fr)"} gap={8}></Grid>
-    </>
+    <Grid mt={4} templateColumns={"repeat(4, 1fr)"} gap={8}>
+      {saleAnimalCardArray &&
+        saleAnimalCardArray.map((v, i) => (
+          <SaleAnimalCard
+            key={i}
+            animalType={v.animalType}
+            animalPrice={v.animalPrice}
+          />
+        ))}
+    </Grid>
   );
 };
 
-export default MyAnimal;
+export default SaleAnimal;

@@ -32,7 +32,7 @@ contract MintAnimalToken is ERC721Enumerable{
     function getAnimalTokens(address _animalTokenOwner) view public returns (AnimalTokenData[] memory) {
         uint256 balanceLength = balanceOf(_animalTokenOwner);
 
-        require(balanceLength !=0, 'Owner did not have token.');
+        require(balanceLength =0, 'Owner did not have token.');
 
         AnimalTokenData[] memory animalTokenData = new AnimalTokenData[](balanceLength);
 
